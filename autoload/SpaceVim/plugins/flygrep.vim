@@ -317,7 +317,7 @@ function! s:open_item() abort
     let linenr = matchstr(line, ':\d\+:')[1:-2]
     let colum = matchstr(line, '\(:\d\+\)\@<=:\d\+:')[1:-2]
     noautocmd q
-    exe 'e ' . filename
+    exe 'vsp ' . filename
     call cursor(linenr, colum)
     noautocmd normal! :
   endif
@@ -474,9 +474,9 @@ function! SpaceVim#plugins#flygrep#open(agrv) abort
   let s:mode = ''
   " set default handle func: s:flygrep
   let s:MPT._handle_fly = function('s:flygrep')
-  noautocmd rightbelow split __flygrep__
+  noautocmd botright 20split __flygrep__
   let s:flygrep_buffer_id = bufnr('%')
-  setlocal buftype=nofile bufhidden=wipe nobuflisted nolist noswapfile nowrap cursorline nospell nonu norelativenumber
+  setlocal buftype=nofile bufhidden=wipe nobuflisted nolist noswapfile wrap cursorline nospell nonu norelativenumber
   let save_tve = &t_ve
   setlocal t_ve=
   " setlocal nomodifiable
