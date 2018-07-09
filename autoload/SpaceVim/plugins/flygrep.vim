@@ -212,11 +212,13 @@ endfunction
 function! s:grep_stdout(id, data, event) abort
   let datas =filter(a:data, '!empty(v:val)')
   " let datas = s:LIST.uniq_by_func(datas, function('s:file_line'))
+  let filename = fnamemodify(split(datas[0], ':\d\+:')[0], ":~:.")
+  let tdata = filename . ":" . join(split(datas[0], ':')[1:], ':')
   if bufnr('%') == s:flygrep_buffer_id
     if getline(1) ==# ''
-      call setline(1, datas)
+      call setline(1, tdata)
     else
-      call append('$', datas)
+      call append('$', tdata)
     endif
   endif
 endfunction
